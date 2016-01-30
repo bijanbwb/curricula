@@ -46,7 +46,7 @@ export default class App extends React.Component {
 
   editNote = (id, task) => {
     const notes = this.state.notes.map(note => {
-      if (note.id === note && task) {
+      if (note.id === id && task) {
         note.task = task;
       }
 

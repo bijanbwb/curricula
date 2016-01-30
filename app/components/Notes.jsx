@@ -10,5 +10,5 @@ export default ({notes, onEdit}) => {
           onEdit={onEdit.bind(null, note.id)} />
       </li>
     )}</ul>
-  )
+  );
 }
