@@ -12,7 +12,8 @@ export default class App extends React.Component {
       {
         id: uuid.v4(),
         task: 'Learn React'
-      }, {
+      },
+      {
         id: uuid.v4(),
         task: 'Do Laundry'
       }
