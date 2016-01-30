@@ -26,10 +26,11 @@ export default class App extends React.Component {
 
   render() {
     const notes = this.state.notes;
+
     return (
       <div>
         <button onClick={this.addNote}>+</button>
-        <Notes notes={notes} />
+        <Notes notes={notes} onEdit={this.editNote} />
       </div>
     );
   }
@@ -41,5 +42,17 @@ export default class App extends React.Component {
         task: 'New Task'
       }])
     });
+  };
+
+  editNote = (id, task) => {
+    const notes = this.state.notes.map(note => {
+      if (note.id === note && task) {
+        note.task = task;
+      }
+
+      return note;
+    });
+
+    this.setState({notes});
   };
 }
