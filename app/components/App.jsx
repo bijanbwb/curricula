@@ -1,13 +1,13 @@
 import uuid from 'node-uuid';
 import React from 'react';
-import Notes from './Notes.jsx';
+import Resources from './Resources.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: [
+      resources: [
         {
           id: uuid.v4(),
           task: 'Learn Webpack'
@@ -18,49 +18,49 @@ export default class App extends React.Component {
         },
         {
           id: uuid.v4(),
-          task: 'Do Laundry'
+          task: 'Build Things!'
         }
       ]
     };
   }
 
   render() {
-    const notes = this.state.notes;
+    const resources = this.state.resources;
 
     return (
       <div>
-        <button className="add-note" onClick={this.addNote}>+</button>
-        <Notes notes={notes}
-          onEdit={this.editNote}
-          onDelete={this.deleteNote} />
+        <button className="add-resource" onClick={this.addResource}>+</button>
+        <Resources resources={resources}
+          onEdit={this.editResource}
+          onDelete={this.deleteResource} />
       </div>
     );
   }
 
-  addNote = () => {
+  addResource = () => {
     this.setState({
-      notes: this.state.notes.concat([{
+      resources: this.state.resources.concat([{
         id: uuid.v4(),
         task: 'New Task'
       }])
     });
   };
 
-  editNote = (id, task) => {
-    const notes = this.state.notes.map(note => {
-      if (note.id === id && task) {
-        note.task = task;
+  editResource = (id, task) => {
+    const resources = this.state.resources.map(resource => {
+      if (resource.id === id && task) {
+        resource.task = task;
       }
 
-      return note;
+      return resource;
     });
 
-    this.setState({notes});
+    this.setState({resources});
   };
 
-  deleteNote = (id) => {
+  deleteResource = (id) => {
     this.setState({
-      notes: this.state.notes.filter(note => note.id !== id)
+      resources: this.state.resources.filter(resource => resource.id !== id)
     });
   };
 }

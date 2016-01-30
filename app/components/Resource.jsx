@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Note extends React.Component {
+export default class Resource extends React.Component {
   constructor(props) {
     super(props);
 
@@ -16,7 +16,7 @@ export default class Note extends React.Component {
       return this.renderEdit();
     }
 
-    return this.renderNote();
+    return this.renderResource();
   }
 
   renderEdit = () => {
@@ -39,12 +39,12 @@ export default class Note extends React.Component {
 
   renderDelete = () => {
       return <button
-        className="delete-note"
+        className="delete-resource"
         onClick={this.props.onDelete}>x</button>;
   };
 
-  renderNote = () => {
-    // If the user clicks a normal note, trigger editing logic.
+  renderResource = () => {
+    // If the user clicks a normal resource, trigger editing logic.
     const onDelete = this.props.onDelete;
 
     return (
@@ -70,7 +70,7 @@ export default class Note extends React.Component {
   };
 
   finishEdit = (e) => {
-    // `Note` will trigger an optional `onEdit` callback once it
+    // `Resource` will trigger an optional `onEdit` callback once it
     // has a new value. We will use this to communicate the change to
     // `App`.
     //
