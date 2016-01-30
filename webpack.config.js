@@ -25,7 +25,7 @@ const common = {
       },
       {
         test: /\.jsx?$/,
-        loaders: ['babel?cacheDependency'],
+        loaders: ['babel?cacheDirectory'],
         include: PATHS.app
       }
     ]
