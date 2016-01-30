@@ -4,11 +4,11 @@
     "react",
     "survivejs-kanban"
   ],
-  "env": [
+  "env": {
     "start": {
       "presets": [
         "react-hmre"
       ]
     }
-  ]
+  }
 }
