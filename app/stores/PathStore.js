@@ -38,6 +38,10 @@ class PathStore {
 
   attachToPath({pathId, resourceId}) {
     const paths = this.paths.map(path => {
+      if (path.resources.indexOf(resourceId) >= 0) {
+        path.resources = path.resources.filter(resource => resource !== resourceId);
+      }
+
       if (path.id === pathId) {
         if (path.resources.indexOf(resourceId) === -1) {
           path.resources.push(resourceId);
@@ -45,6 +49,7 @@ class PathStore {
           console.warn('Already attached resource to path', paths);
         }
       }
+
       return path;
     });
 

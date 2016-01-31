@@ -5,6 +5,25 @@ import ResourceActions from '../actions/ResourceActions';
 import ResourceStore from '../stores/ResourceStore';
 import PathActions from '../actions/PathActions';
 import Editable from './Editable.jsx';
+import {DropTarget} from 'react-dnd';
+import ItemTypes from '../constants/itemTypes';
+
+const resourceTarget = {
+  hover(targetProps, monitor) {
+    const sourceProps = monitor.getItem();
+    const sourceId = sourceProps.id;
+    if (!targetProps.path.resources.length) {
+      PathActions.attachToPath({
+        pathId: targetProps.path.id,
+        resourceId: sourceId
+      });
+    }
+  }
+};
+
+@DropTarget(ItemTypes.RESOURCE, resourceTarget, (connect) => ({
+  connectDropTarget: connect.dropTarget()
+}))
 
 export default class Path extends React.Component {
   constructor(props) {
@@ -18,8 +37,9 @@ export default class Path extends React.Component {
   }
 
   render() {
-    const {path, ...props} = this.props;
-    return (
+    const {connectDropTarget, path, ...props} = this.props;
+
+    return connectDropTarget(
       <div {...props}>
         <div className="path-header" onClick={this.activatePathEdit}>
           <div className="path-add-resource">
