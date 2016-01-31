@@ -1,6 +1,7 @@
 import uuid from 'node-uuid';
 import alt from '../libs/alt';
 import PathActions from '../actions/PathActions';
+import update from 'react-addons-update';
 
 class PathStore {
   constructor() {
@@ -62,7 +63,32 @@ class PathStore {
   }
 
   move({sourceId, targetId}) {
-    console.log(`source: ${sourceId}, target: ${targetId}`);
+    const paths = this.paths;
+    const sourcePath = paths.filter(path => {
+      return path.resources.indexOf(sourceId) >= 0;
+    })[0];
+    const targetPath = paths.filter(path => {
+      return path.resources.indexOf(targetId) >= 0;
+    })[0];
+    const sourceResourceIndex = sourcePath.resources.indexOf(sourceId);
+    const targetResourceIndex = targetPath.resources.indexOf(targetId);
+
+    if (sourcePath === targetPath) {
+      // move at once to avoid complications
+      sourcePath.resources = update(sourcePath.resources, {
+        $splice: [
+          [sourceResourceIndex, 1],
+          [targetResourceIndex, 0, sourceId]
+        ]
+      });
+    } else {
+      // get rid of the source
+      sourcePath.resources.splice(sourceResourceIndex, 1);
+      // and move it to target
+      targetPath.resources.splice(targetResourceIndex, 0, sourceId);
+    }
+
+    this.setState({paths});
   }
 }
 
