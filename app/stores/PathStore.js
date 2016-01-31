@@ -16,6 +16,21 @@ class PathStore {
       paths: paths.concat(path)
     });
   }
+
+  attachToPath({pathId, resourceId}) {
+    const paths = this.paths.map(path => {
+      if (path.id === pathId) {
+        if (path.resources.indexOf(resourceId) === -1) {
+          path.resources.push(resourceId);
+        } else {
+          console.warn('Already attached resource to path', paths);
+        }
+      }
+      return path;
+    });
+
+    this.setState({paths});
+  }
 }
 
 export default alt.createStore(PathStore, 'PathStore');

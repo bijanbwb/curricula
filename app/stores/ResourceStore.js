@@ -12,9 +12,12 @@ class ResourceStore {
     const resources = this.resources;
 
     resource.id = uuid.v4();
+
     this.setState({
       resources: resources.concat(resource)
     });
+
+    return resource;
   }
 
   update(updatedResource) {
