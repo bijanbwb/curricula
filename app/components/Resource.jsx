@@ -7,6 +7,9 @@ const resourceSource = {
     return {
       id: props.id
     };
+  },
+  isDragging(props, monitor) {
+    return props.id === monitor.getItem().id;
   }
 };
 
@@ -21,8 +24,9 @@ const resourceTarget = {
   }
 };
 
-@DragSource(ItemTypes.RESOURCE, resourceSource, (connect) => ({
-  connectDragSource: connect.dragSource()
+@DragSource(ItemTypes.RESOURCE, resourceSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging() // map isDragging() state to isDragging prop
 }))
 
 @DropTarget(ItemTypes.RESOURCE, resourceTarget, (connect) => ({
@@ -31,10 +35,12 @@ const resourceTarget = {
 
 export default class Resource extends React.Component {
   render() {
-    const {connectDragSource, connectDropTarget,
-      id, onMove, ...props} = this.props;
+    const {connectDragSource, connectDropTarget, isDragging,
+      onMove, id, ...props} = this.props;
     return connectDragSource(connectDropTarget(
-      <li {...props}>{props.children}</li>
+      <li style={{
+        opacity: isDragging ? 0 : 1
+      }} {...props}>{props.children}</li>
     ));
   }
 }
