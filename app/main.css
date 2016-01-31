@@ -26,12 +26,12 @@ body {
   transition: 0.6s;
 }
 
-.resource .task {
+.resource .value {
   /* force to use inline-block so that it gets minimum height */
   display: inline-block;
 }
 
-.resource .delete-resource {
+.resource .delete {
   float: right;
   padding: 0;
   background-color: #fdfdfd;
@@ -40,6 +40,6 @@ body {
   visibility: hidden;
 }
 
-.resource:hover .delete-resource {
+.resource:hover .delete {
   visibility: visible;
 }
