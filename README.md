@@ -24,9 +24,11 @@ the learning process.
 - `npm run build`: Uses webpack to create static files, including `index.html`
                    and all necessary `.js` files. These are ignored from the
                    repo, but are available in the `/build` directory.
+- `npm run stats`: Generates a `stats.json` file with build statistics.
 - `npm run start`: Starts the webpack dev server with the application running
                    at `http://localhost:8080/`.
-- `npm run test`: Runs all tests. All none of them.
+- `npm run tdd`: Watch files and continually run specs.
+- `npm run test`: Runs all tests in the `/specs` directory.
 
 ### Versions
 
