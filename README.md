@@ -1,5 +1,7 @@
 # Curricula
 
+![Curricula](https://cloud.githubusercontent.com/assets/201320/12700216/bf824676-c7a7-11e5-833b-9e6f46b08e3c.png)
+
 Curricula is a small sample application intended to help manage learning
 resources. It is built with React, Webpack, and Node.
 
