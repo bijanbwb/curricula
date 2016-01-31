@@ -5,7 +5,12 @@ import ResourceActions from '../actions/ResourceActions';
 class ResourceStore {
   constructor() {
     this.bindActions(ResourceActions);
+
     this.resources = [];
+
+    this.exportPublicMethods({
+      getResourcesByIds: this.getResourcesByIds.bind(this)
+    });
   }
 
   create(resource) {
@@ -36,6 +41,19 @@ class ResourceStore {
     this.setState({
       resources: this.resources.filter(resource => resource.id !== id)
     });
+  }
+
+  getResourcesByIds(ids) {
+    // 1. Make sure we are operating on an array and
+    // map over the ids
+    // [id, id, id, ...] -> [[Resource], [], [Resource], ...]
+    return (ids || []).map(
+      // 2. Extract matching resources
+      // [Resource, Resource, Resource] -> [Resource, ...] (match) or [] (no match)
+      id => this.resources.filter(resource => resource.id === id)
+    // 3. Filter out possible empty arrays and get resources
+    // [[Resource], [], [Resource]] -> [[Resource], [Resource]] -> [Resource, Resource]
+    ).filter(a => a.length).map(a => a[0]);
   }
 }
 
