@@ -5,7 +5,10 @@ import Resource from './Resource.jsx';
 export default ({resources, onValueClick, onEdit, onDelete}) => {
   return (
     <ul className="resources">{resources.map(resource =>
-      <Resource className="resource" id={resource.id} key={resource.id}>
+      <Resource className="resource" id={resource.id} key={resource.id}
+        onMove={({sourceId, targetId}) =>
+          console.log(`source: ${sourceId}, target: ${targetId}`)
+      }>
       <Editable
         editing={resource.editing}
         value={resource.task}

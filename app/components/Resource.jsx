@@ -1,11 +1,23 @@
 import React from 'react';
-import {DragSource} from 'react-dnd';
+import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
 
 const resourceSource = {
   beginDrag(props) {
-    console.log('begin dragging resource', props);
-    return {};
+    return {
+      id: props.id
+    };
+  }
+};
+
+const resourceTarget = {
+  hover(targetProps, monitor) {
+    const targetId = targetProps.id;
+    const sourceProps = monitor.getItem();
+    const sourceId = sourceProps.id;
+    if (sourceId !== targetId) {
+      targetProps.onMove({sourceId, targetId});
+    }
   }
 };
 
@@ -13,11 +25,16 @@ const resourceSource = {
   connectDragSource: connect.dragSource()
 }))
 
+@DropTarget(ItemTypes.RESOURCE, resourceTarget, (connect) => ({
+    connectDropTarget: connect.dropTarget()
+}))
+
 export default class Resource extends React.Component {
   render() {
-    const {connectDragSource, id, onMove, ...props} = this.props;
-    return connectDragSource(
-        <li {...props}>{props.children}</li>
-        );
+    const {connectDragSource, connectDropTarget,
+      id, onMove, ...props} = this.props;
+    return connectDragSource(connectDropTarget(
+      <li {...props}>{props.children}</li>
+    ));
   }
 }
