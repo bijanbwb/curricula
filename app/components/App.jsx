@@ -17,7 +17,7 @@ export default class App extends React.Component {
         <AltContainer
           stores={[PathStore]}
           inject={{
-            paths: () => PathStore.getState().paths || []
+            paths: () => PathStore.getState().paths
           }}
         >
           <Paths />
