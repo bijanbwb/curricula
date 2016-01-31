@@ -1,3 +1,6 @@
 import alt from '../libs/alt';
 
-export default alt.generateActions('create', 'attachToPath', 'detachFromPath');
+export default alt.generateActions(
+  'create', 'update', 'delete',
+  'attachToPath', 'detachFromPath'
+);

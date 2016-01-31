@@ -17,6 +17,24 @@ class PathStore {
     });
   }
 
+  update(updatedPath) {
+    const paths = this.paths.map(path => {
+      if (path.id === updatedPath.id) {
+        return Object.assign({}, path, updatedPath);
+      }
+
+      return path;
+    });
+
+    this.setState({paths});
+  }
+
+  delete(id) {
+    this.setState({
+      paths: this.paths.filter(path => path.id !== id)
+    });
+  }
+
   attachToPath({pathId, resourceId}) {
     const paths = this.paths.map(path => {
       if (path.id === pathId) {
