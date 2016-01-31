@@ -82,7 +82,6 @@ export default class Path extends React.Component {
   }
 
   deleteResource(pathId, resourceId) {
-    PathActions.detachFromPath({pathId, resourceId});
     ResourceActions.delete(resourceId);
   }
 

@@ -56,17 +56,6 @@ class PathStore {
     this.setState({paths});
   }
 
-  detachFromPath({pathId, resourceId}) {
-    const paths = this.paths.map(path => {
-      if (path.id === pathId) {
-        path.resources = path.resources.filter(resource => resource !== resourceId);
-      }
-      return path;
-    });
-
-    this.setState({paths});
-  }
-
   move({sourceId, targetId}) {
     const paths = this.paths;
     const sourcePath = paths.filter(path => {
