@@ -2,6 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const pkg = require('./package.json');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -34,14 +35,21 @@ const common = {
         include: PATHS.app
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'node_modules/html-webpack-template/index.html',
+      title: 'Curricula',
+      appMountId: 'app',
+      inject: false
+    })
+  ]
 };
 
 if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {
-      contentBase: PATHS.build,
       historyApiFallback: true,
       hot: true,
       inline: true,
