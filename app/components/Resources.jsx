@@ -1,12 +1,14 @@
 import React from 'react';
-import Resource from './Resource.jsx';
+import Editable from './Editable.jsx';
 
-export default ({resources, onEdit, onDelete}) => {
+export default ({resources, onValueClick, onEdit, onDelete}) => {
   return (
     <ul className="resources">{resources.map(resource =>
       <li className="resource" key={resource.id}>
-        <Resource
-          task={resource.task}
+        <Editable
+          editing={resource.editing}
+          value={resource.task}
+          onValueClick={onValueClick.bind(null, resource.id)}
           onEdit={onEdit.bind(null, resource.id)}
           onDelete={onDelete.bind(null, resource.id)} />
       </li>
