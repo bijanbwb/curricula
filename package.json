@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "deploy": "gh-pages -d build",
     "stats": "webpack --profile --json > stats.json",
     "start": "webpack-dev-server",
     "test": "karma start",
@@ -22,6 +23,7 @@
     "clean-webpack-plugin": "^0.1.7",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "gh-pages": "^0.9.0",
     "html-webpack-plugin": "^2.7.2",
     "html-webpack-template": "^3.1.5",
     "isparta-instrumenter-loader": "^1.0.0",
