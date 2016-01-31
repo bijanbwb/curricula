@@ -60,6 +60,10 @@ class PathStore {
 
     this.setState({paths});
   }
+
+  move({sourceId, targetId}) {
+    console.log(`source: ${sourceId}, target: ${targetId}`);
+  }
 }
 
 export default alt.createStore(PathStore, 'PathStore');
