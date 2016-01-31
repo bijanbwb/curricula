@@ -31,6 +31,17 @@ class PathStore {
 
     this.setState({paths});
   }
+
+  detachFromPath({pathId, resourceId}) {
+    const paths = this.paths.map(path => {
+      if (path.id === pathId) {
+        path.resources = path.resources.filter(resource => resource !== resourceId);
+      }
+      return path;
+    });
+
+    this.setState({paths});
+  }
 }
 
 export default alt.createStore(PathStore, 'PathStore');
