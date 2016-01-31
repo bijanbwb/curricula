@@ -1,10 +1,10 @@
 import React from 'react';
+import Path from './Path.jsx';
 
-export default class Paths extends React.Component {
-  render() {
-    return (
-      <div className="paths">
-      </div>
-    );
-  }
+export default ({paths}) => {
+  return (
+    <div className="paths">{paths.map(path =>
+      <Path className="path" key={path.id} path={path} />
+    )}</div>
+  );
 }
