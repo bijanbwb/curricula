@@ -25,7 +25,7 @@ const resourceTarget = {
   connectDropTarget: connect.dropTarget()
 }))
 
-export default class Path extends React.Component {
+class Path extends React.Component {
   constructor(props) {
     super(props);
     const id = props.path.id;
@@ -101,3 +101,20 @@ export default class Path extends React.Component {
     ResourceActions.update({id, editing: true});
   }
 }
+
+Path.propTypes = {
+  path: React.PropTypes.shape({
+    id: React.PropTypes.string.isRequired,
+    editing: React.PropTypes.bool,
+    name: React.PropTypes.string,
+    resources: React.PropTypes.array
+  }).isRequired,
+  connectDropTarget: React.PropTypes.func
+};
+
+Path.defaultProps = {
+  name: '',
+  resources: []
+};
+
+export default Path;
