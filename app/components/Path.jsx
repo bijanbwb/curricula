@@ -58,7 +58,7 @@ export default class Path extends React.Component {
   }
 
   editResource(id, task) {
-    ResourceActions.update({id, task});
+    ResourceActions.update({id, task, editing: false});
   }
 
   deleteResource(pathId, resourceId) {
@@ -67,18 +67,18 @@ export default class Path extends React.Component {
   }
 
   editName(id, name) {
-    console.log(`edit path ${id} name using ${name}`);
+    PathActions.update({id, name, editing: false});
   }
 
   deletePath(id) {
-    console.log(`delete path ${id}`);
+    PathActions.delete(id);
   }
 
   activatePathEdit(id) {
-    console.log(`activate path ${id} edit`);
+    PathActions.update({id, editing: true});
   }
 
   activateResourceEdit(id) {
-    console.log(`activate resource ${id} edit`);
+    ResourceActions.update({id, editing: true});
   }
 }
