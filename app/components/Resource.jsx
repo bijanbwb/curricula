@@ -33,7 +33,7 @@ const resourceTarget = {
     connectDropTarget: connect.dropTarget()
 }))
 
-export default class Resource extends React.Component {
+class Resource extends React.Component {
   render() {
     const {connectDragSource, connectDropTarget, isDragging,
       onMove, id, ...props} = this.props;
@@ -44,3 +44,17 @@ export default class Resource extends React.Component {
     ));
   }
 }
+
+Resource.propTypes = {
+  id: React.PropTypes.string.isRequired,
+  connectDragSource: React.PropTypes.func,
+  connectDropTarget: React.PropTypes.func,
+  isDragging: React.PropTypes.bool,
+  onMove: React.PropTypes.func
+};
+
+Resource.defaultProps = {
+  onMove: () => {}
+};
+
+export default Resource;
