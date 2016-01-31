@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const pkg = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Clean = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -25,11 +26,6 @@ const common = {
   },
   module: {
     loaders: [
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css'],
-        include: PATHS.app
-      },
       {
         test: /\.jsx?$/,
         loaders: ['babel?cacheDirectory'],
@@ -59,6 +55,16 @@ if (TARGET === 'start' || !TARGET) {
       host: process.env.HOST,
       port: process.env.PORT
     },
+    module: {
+      loaders: [
+        // Define development specific CSS setup
+        {
+          test: /\.css$/,
+          loaders: ['style', 'css'],
+          include: PATHS.app
+        }
+      ]
+    },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
     ]
@@ -81,10 +87,22 @@ if (TARGET === 'build' || TARGET === 'stats') {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
+    module: {
+      loaders: [
+        // Extract CSS during build
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css'),
+          include: PATHS.app
+        }
+      ]
+    },
     plugins: [
       new Clean([PATHS.build], {
         verbose: false // Don't write logs to console
       }),
+      // Output extracted CSS to a file
+      new ExtractTextPlugin('styles.[chunkhash].css'),
       // Extract vendor and manifest files
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest']
