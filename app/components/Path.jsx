@@ -3,8 +3,16 @@ import React from 'react';
 import Resources from './Resources.jsx';
 import ResourceActions from '../actions/ResourceActions';
 import ResourceStore from '../stores/ResourceStore';
+import PathActions from '../actions/PathActions';
 
 export default class Path extends React.Component {
+  constructor(props) {
+    super(props);
+    const id = props.path.id;
+    this.addResource = this.addResource.bind(this, id);
+    this.deleteResource = this.deleteResource.bind(this, id);
+  }
+
   render() {
     const {path, ...props} = this.props;
     return (
@@ -20,7 +28,7 @@ export default class Path extends React.Component {
         <AltContainer
           stores={[ResourceStore]}
           inject={{
-            resources: () => ResourceStore.getState().resources || []
+            resources: () => ResourceStore.getResourcesByIds(path.resources)
           }}
         >
           <Resources onEdit={this.editResource} onDelete={this.deleteResource} />
@@ -29,15 +37,21 @@ export default class Path extends React.Component {
     );
   }
 
-  addResource() {
-    ResourceActions.create({task: 'New Task'});
+  addResource(pathId, e) {
+    const resource = ResourceActions.create({task: 'New Task'});
+
+    PathActions.attachToPath({
+      resourceId: resource.id,
+      pathId
+    });
   }
 
   editResource(id, task) {
     ResourceActions.update({id, task});
   }
 
-  deleteResource(id) {
-    ResourceActions.delete(id);
+  deleteResource(pathId, resourceId) {
+    PathActions.detachFromPath({pathId, resourceId});
+    ResourceActions.delete(resourceId);
   }
 }
