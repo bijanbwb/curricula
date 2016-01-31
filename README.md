@@ -21,7 +21,9 @@ the learning process.
 
 ### Scripts
 
-- `npm run build`: Uses webpack to create a new `./build/bundle.js` file.
+- `npm run build`: Uses webpack to create static files, including `index.html`
+                   and all necessary `.js` files. These are ignored from the
+                   repo, but are available in the `/build` directory.
 - `npm run start`: Starts the webpack dev server with the application running
                    at `http://localhost:8080/`.
 - `npm run test`: Runs all tests. All none of them.
