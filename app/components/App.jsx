@@ -4,6 +4,10 @@ import React from 'react';
 import Paths from './Paths.jsx';
 import PathActions from '../actions/PathActions';
 import PathStore from '../stores/PathStore';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+@DragDropContext(HTML5Backend)
 
 export default class App extends React.Component {
   render() {
