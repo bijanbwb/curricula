@@ -4,7 +4,8 @@ const TARGET = process.env.npm_lifecycle_event;
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build')
+  build: path.join(__dirname, 'build'),
+  test: path.join(__dirname, 'specs')
 };
 
 process.env.BABEL_ENV = TARGET;
@@ -57,4 +58,33 @@ if (TARGET === 'start' || !TARGET) {
 
 if (TARGET === 'build') {
   module.exports = merge(common, {});
+}
+
+if (TARGET === 'test' || TARGET === 'tdd') {
+  module.exports = merge(common, {
+    entry: {}, // karma will set this
+    output: {}, // karma will set this
+    devtool: 'inline-source-map',
+    resolve: {
+      alias: {
+        'app': PATHS.app
+      }
+    },
+    module: {
+      preLoaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['isparta-instrumenter'],
+          include: PATHS.app
+        }
+      ],
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['babel?cacheDirectory'],
+          include: PATHS.test
+        }
+      ]
+    }
+  });
 }
