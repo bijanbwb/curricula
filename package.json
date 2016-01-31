@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "deploy": "gh-pages -d build",
+    "flow": "flow check",
     "stats": "webpack --profile --json > stats.json",
     "start": "webpack-dev-server",
     "test": "karma start",
