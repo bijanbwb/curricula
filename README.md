@@ -2,7 +2,7 @@
 
 ![Curricula](https://cloud.githubusercontent.com/assets/201320/12700216/bf824676-c7a7-11e5-833b-9e6f46b08e3c.png)
 
-[Curricula](http://bijanbwb.github.io/curricula/) is a small sample application intended to help manage learning
+[Curricula](http://bijanbwb.github.io/try-react-webpack/) is a small sample application intended to help manage learning
 resources. It is built with:
 
 - React
